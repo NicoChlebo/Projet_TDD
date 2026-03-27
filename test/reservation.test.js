@@ -38,3 +38,26 @@ describe("Given i try to make a reservation", () => {
         expect(() => createReservation(data)).toThrow(new ValidationError("Reservation end date must be after start date"));
     });
 });
+
+describe("Given a reservation is already set", () => {
+    const existingReservations = [
+        {
+            id: 1,
+            name: "Client Existant",
+            startDate: new Date("2026-05-10T10:00:00Z"),
+            endDate: new Date("2026-05-10T12:00:00Z")
+        }
+    ];
+
+    test("When a reservation overlaps an existing one", () => {
+        const newReservation = {
+            id: 2,
+            name: "Client Chevauchant",
+            startDate: new Date("2026-05-10T11:00:00Z"),
+            endDate: new Date("2026-05-10T13:00:00Z")
+        };
+
+        expect(() => createReservation(newReservation, existingReservations))
+            .toThrow(new ValidationError("Reservation overlaps with an existing one"));
+    });
+});
