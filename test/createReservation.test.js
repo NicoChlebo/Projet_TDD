@@ -1,4 +1,4 @@
-import { createReservation } from "../src/reservation.js";
+import { createReservation } from "../src/createReservation.js";
 import { ValidationError } from "../src/errors.js";
 
 describe("Given i try to make a reservation", () => {
