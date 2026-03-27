@@ -1,6 +1,6 @@
 import { ValidationError } from "./errors";
 
-export function createReservation(data) {
+export function createReservation(data, existingReservations = []) {
     const { id, name, startDate, endDate } = data;
 
     if (!id) {
@@ -25,6 +25,14 @@ export function createReservation(data) {
 
     if (endDate <= startDate) {
         throw new ValidationError("Reservation end date must be after start date");
+    }
+
+    const isOverlapping = existingReservations.some(existing => {
+        return startDate < existing.endDate && endDate > existing.startDate;
+    });
+
+    if (isOverlapping) {
+        throw new ValidationError("Reservation overlaps with an existing one");
     }
 
     return { id, name, startDate, endDate };
