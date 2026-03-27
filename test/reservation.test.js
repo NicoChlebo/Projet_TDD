@@ -5,27 +5,27 @@ describe("Given i try to make a reservation", () => {
 
     test("When the reservation does not have an ID", () => {
         const data = { name: "Client A", startDate: new Date(), endDate: new Date() };
-        expect(() => createReservation(data)).toThrow(new ValidationError("ID is required"));
+        expect(() => createReservation(data)).toThrow(new ValidationError("Reservation must have an ID"));
     });
 
     test("When the reservation does not have a name", () => {
         const data = { id: 1, startDate: new Date(), endDate: new Date() };
-        expect(() => createReservation(data)).toThrow(new ValidationError("Name is required"));
+        expect(() => createReservation(data)).toThrow(new ValidationError("Reservation must have a name"));
     });
 
     test("When the reservation does not have dates", () => {
         const data = { id: 1, name: "Client A" };
-        expect(() => createReservation(data)).toThrow(new ValidationError("Start and end dates are required"));
+        expect(() => createReservation(data)).toThrow(new ValidationError("Reservation must have a start and end date"));
     });
 
     test("When the reservation has only startDate", () => {
         const data = { id: 1, name: "Client A" };
-        expect(() => createReservation(data)).toThrow(new ValidationError("Start and end dates are required"));
+        expect(() => createReservation(data)).toThrow(new ValidationError("Reservation must have a start and end date"));
     });
 
     test("When the reservation has only endDate", () => {
         const data = { id: 1, name: "Client A" };
-        expect(() => createReservation(data)).toThrow(new ValidationError("Start and end dates are required"));
+        expect(() => createReservation(data)).toThrow(new ValidationError("Reservation must have a start and end date"));
     });
 
     test("When the reservation has the endDate before the startDate", () => {
@@ -35,6 +35,6 @@ describe("Given i try to make a reservation", () => {
             startDate: new Date("2026-06-10"),
             endDate: new Date("2026-06-08")
         };
-        expect(() => createReservation(data)).toThrow(new ValidationError("End date must be after start date"));
+        expect(() => createReservation(data)).toThrow(new ValidationError("Reservation end date must be after start date"));
     });
 });
