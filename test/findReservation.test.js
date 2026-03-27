@@ -18,13 +18,13 @@ describe("Given i try to find a reservation", () => {
 
     test("Should return an empty array if no reservation is active at the given date", () => {
         const searchDate = new Date("2026-05-20T12:00:00Z");
-        const results = findReservationsByDate(searchDate, existingReservations);
+        const results = findReservations(searchDate, existingReservations);
         expect(results).toEqual([]);
     });
 
     test("Should return the reservation if the date is between start and end", () => {
         const searchDate = new Date("2026-05-09T12:00:00Z");
-        const results = findReservationsByDate(searchDate, existingReservations);
+        const results = findReservations(searchDate, existingReservations);
 
         expect(results).toHaveLength(1);
         expect(results[0].id).toBe(1);
