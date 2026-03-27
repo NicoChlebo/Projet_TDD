@@ -33,4 +33,19 @@ describe("Given i try to cancel a reservation", () => {
         expect(() => cancelReservation(1, existingReservations, now))
             .toThrow(new ServiceError("Cannot cancel a reservation less than 48h before the start"));
     });
+
+    test("When the cancellation requested is more than 48h before start", () => {
+        const now = new Date("2026-06-01T10:00:00Z");
+        const existingReservations = [
+            {
+                id: 1,
+                name: "Client 1",
+                startDate: new Date("2026-06-10T14:00:00Z"),
+                endDate: new Date("2026-06-12T14:00:00Z")
+            }
+        ];
+
+        const result = cancelReservation(1, existingReservations, now);
+        expect(result).toBe(true);
+    });
 });
