@@ -29,4 +29,19 @@ describe("Given i try to find a reservation", () => {
         expect(results).toHaveLength(1);
         expect(results[0].id).toBe(1);
     });
+
+    test("Should return the reservation if the search date is exactly the start or end date", () => {
+        const existing = [{
+            id: 1,
+            name: "Bornes",
+            startDate: new Date("2026-05-10T10:00:00Z"),
+            endDate: new Date("2026-05-10T12:00:00Z")
+        }];
+
+        const startResult = findReservations(new Date("2026-05-10T10:00:00Z"), existing);
+        expect(startResult).toHaveLength(1);
+
+        const endResult = findReservations(new Date("2026-05-10T12:00:00Z"), existing);
+        expect(endResult).toHaveLength(1);
+    });
 });
